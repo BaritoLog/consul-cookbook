@@ -41,6 +41,25 @@ default[cookbook_name]['prefix_home'] = '/opt'
 # Where to link binaries
 default[cookbook_name]['prefix_bin'] = '/opt/bin'
 
+# Data directory
+default[cookbook_name]['data_dir'] = '/var/opt/consul'
+
+# Configuration directory
+default[cookbook_name]['config_dir'] =
+  "#{node[cookbook_name]['prefix_home']}/consul/etc"
+
+# Consul configuration files
+default[cookbook_name]['main_config'] = 'consul.json'
+
+# Format : name of the file => configuration it contains
+default[cookbook_name]['config'] = {
+  node[cookbook_name]['main_config'] => { # Main configuration
+    'data_dir' => node[cookbook_name]['data_dir'],
+    # 'server' => true if included in the search or hosts
+    # 'retry_join' => will be filled from search
+  }
+}
+
 # Configure retries for the package resources, default = global default (0)
 # (mostly used for test purpose)
 default[cookbook_name]['package_retries'] = nil

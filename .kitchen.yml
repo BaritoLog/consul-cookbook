@@ -26,4 +26,8 @@ suites:
       consul-cookbook:
         role: consul-cookbook
         hosts: ['default-ubuntu-1604.vagrantup.com']
+        config:
+          consul.json:
+            datacenter: dc1
+            disable_host_node_id: true
         package_retries: 1
