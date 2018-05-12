@@ -18,3 +18,7 @@ default[cookbook_name]['hosts'] = []
 # Expected size of the cluster. Ignored if hosts is not empty
 default[cookbook_name]['size'] = 1
 
+# User and group of consul process
+default[cookbook_name]['user'] = 'consul'
+default[cookbook_name]['group'] = 'consul'
+
