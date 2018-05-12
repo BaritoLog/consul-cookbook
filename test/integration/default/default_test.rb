@@ -43,3 +43,9 @@ describe file('/opt/consul/etc/consul.json') do
   its('mode') { should cmp '0640' }
 end
 
+describe systemd_service('consul') do
+  it { should be_installed }
+  it { should be_enabled }
+  it { should be_running }
+end
+

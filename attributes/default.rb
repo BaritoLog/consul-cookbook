@@ -60,6 +60,30 @@ default[cookbook_name]['config'] = {
   }
 }
 
+# Consul daemon options, used to create the ExecStart option in service
+# You should modify the configuration file instead of the CLI options
+default[cookbook_name]['cli_opts'] = {
+  'config-dir' => node[cookbook_name]['config_dir']
+}
+
+# Systemd service unit, include config
+default[cookbook_name]['systemd_unit'] = {
+  'Unit' => {
+    'Description' => 'consul agent',
+    'After' => 'network.target'
+  },
+  'Service' => {
+    'Type' => 'simple',
+    'User' => node[cookbook_name]['user'],
+    'Group' => node[cookbook_name]['group'],
+    'Restart' => 'on-failure',
+    'ExecStart' => 'TO_BE_COMPLETED'
+  },
+  'Install' => {
+    'WantedBy' => 'multi-user.target'
+  }
+}
+
 # Configure retries for the package resources, default = global default (0)
 # (mostly used for test purpose)
 default[cookbook_name]['package_retries'] = nil
