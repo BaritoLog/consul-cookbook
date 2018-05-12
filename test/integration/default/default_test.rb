@@ -15,3 +15,19 @@ unless os.windows?
   end
 end
 
+describe package('unzip rsync') do
+  it { should be_installed }
+end
+
+describe directory('/opt') do
+  its('mode') { should cmp '0755' }
+end
+
+describe directory('/opt/bin') do
+  its('mode') { should cmp '0755' }
+end
+
+describe file('/opt/bin/consul') do
+  its('mode') { should cmp '0755' }
+end
+

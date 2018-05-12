@@ -19,4 +19,5 @@ issues_url 'https://github.com/BaritoLog/consul-cookbook/issues'
 #
 source_url 'https://github.com/BaritoLog/consul-cookbook'
 
+depends 'ark'
 depends 'cluster-search'
