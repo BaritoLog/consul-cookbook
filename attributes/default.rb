@@ -1,12 +1,12 @@
 #
-# Cookbook:: consul-cookbook
+# Cookbook:: consul
 # Attribute:: default
 #
 # Copyright:: 2018, BaritoLog.
 #
 #
 
-cookbook_name = 'consul-cookbook'
+cookbook_name = 'consul'
 
 # Cluster configuration with cluster-search
 # The nodes found will be the servers

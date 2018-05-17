@@ -1,4 +1,4 @@
-name 'consul-cookbook'
+name 'consul'
 maintainer 'BaritoLog'
 maintainer_email 'you@example.com'
 license 'MIT'

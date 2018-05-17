@@ -18,13 +18,13 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[consul-cookbook::default]
+      - recipe[consul::default]
     verifier:
       inspec_tests:
         - test/integration/default
     attributes:
-      consul-cookbook:
-        role: consul-cookbook
+      consul:
+        role: consul
         hosts: ['default-ubuntu-1604.vagrantup.com']
         config:
           consul.json:

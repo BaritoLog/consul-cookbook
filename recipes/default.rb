@@ -1,5 +1,5 @@
 #
-# Cookbook:: consul-cookbook
+# Cookbook:: consul
 # Recipe:: default
 #
 # Copyright:: 2018, BaritoLog.

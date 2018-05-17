@@ -1,5 +1,5 @@
 #
-# Cookbook:: consul-cookbook
+# Cookbook:: consul
 # Recipe:: search 
 #
 # Copyright:: 2018, BaritoLog.
