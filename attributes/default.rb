@@ -22,6 +22,9 @@ version = node[cookbook_name]['version']
 default[cookbook_name]['checksum'] =
   '6c2c8f6f5f91dcff845f1b2ce8a29bd230c11397c448ce85aae6dacd68aa4c14'
 
+# choose to run consul as a server or client agent
+default[cookbook_name]['run_as_server'] = true
+
 # Where to get the zip file
 binary = "consul_#{version}_linux_amd64.zip"
 default[cookbook_name]['mirror'] =
@@ -48,7 +51,7 @@ default[cookbook_name]['main_config'] = 'consul.json'
 default[cookbook_name]['config'] = {
   node[cookbook_name]['main_config'] => { # Main configuration
     'data_dir' => node[cookbook_name]['data_dir'],
-    # 'server' => true if included in the search or hosts
+    'server' => default[cookbook_name]['run_as_server']
     # 'retry_join' => will be filled from search
   }
 }
