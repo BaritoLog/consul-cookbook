@@ -14,6 +14,7 @@
   end
 end
 
+
 # Get servers list (from search), used in main config
 servers = node.run_state.dig(cookbook_name, 'hosts')
 return if servers.nil? # No one, we wait
@@ -23,9 +24,9 @@ node[cookbook_name]['config'].each do |filename, config|
   if filename == node[cookbook_name]['main_config']
     config = config.to_hash
     if servers.include?(node['fqdn'])
-      config['server'] = true
       config['bootstrap_expect'] = servers.size
     end
+    config['server'] = node[cookbook_name]['run_as_server']
     config['retry_join'] = servers
   end
 
@@ -36,4 +37,3 @@ node[cookbook_name]['config'].each do |filename, config|
     mode '0640'
   end
 end
-
