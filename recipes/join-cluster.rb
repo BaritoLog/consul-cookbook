@@ -1,6 +1,6 @@
 #
 # Cookbook:: consul
-# Recipe:: systemd 
+# Recipe:: join-cluster 
 #
 # Copyright:: 2018, BaritoLog.
 

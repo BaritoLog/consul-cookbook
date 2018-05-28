@@ -16,3 +16,10 @@ node[cookbook_name]['registered_services'].each do |srv|
     mode '0640'
   end
 end
+
+bin = "#{node[cookbook_name]['prefix_home']}/bin/consul"
+
+# Reload Consul configurations
+execute "reload config" do
+  command "#{bin} reload"
+end
