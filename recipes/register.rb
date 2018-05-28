@@ -1,6 +1,6 @@
 #
 # Cookbook:: consul
-# Recipe:: register 
+# Recipe:: register
 #
 # Copyright:: 2018, BaritoLog.
 
