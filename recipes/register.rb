@@ -8,6 +8,7 @@
 return if node.run_state.dig(cookbook_name, 'hosts').nil?
 
 node[cookbook_name]['registered_services'].each do |srv|
+  next if service['name'].nil?
   service = srv.to_hash
   file "#{node[cookbook_name]['config_dir']}/#{service['name']}.json" do
     content Chef::JSONCompat.to_json_pretty(service)
