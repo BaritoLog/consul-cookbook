@@ -22,7 +22,7 @@ version = node[cookbook_name]['version']
 default[cookbook_name]['checksum'] =
   '6c2c8f6f5f91dcff845f1b2ce8a29bd230c11397c448ce85aae6dacd68aa4c14'
 
-# choose to run consul as a server or client agent
+# Choose to run consul as a server or client agent
 default[cookbook_name]['run_as_server'] = true
 
 # Where to get the zip file
@@ -52,7 +52,6 @@ default[cookbook_name]['config'] = {
   node[cookbook_name]['main_config'] => { # Main configuration
     'data_dir' => node[cookbook_name]['data_dir'],
     'server' => default[cookbook_name]['run_as_server']
-    # 'retry_join' => will be filled from search
   }
 }
 
@@ -79,6 +78,9 @@ default[cookbook_name]['systemd_unit'] = {
     'WantedBy' => 'multi-user.target'
   }
 }
+
+# Service that will be registered into Consul
+default[cookbook_name]['registered_services'] = []
 
 # Configure retries for the package resources, default = global default (0)
 # (mostly used for test purpose)
