@@ -8,7 +8,10 @@
 
 cookbook_name = 'consul'
 
-# Hosts of the cluster
+# Choose to run consul as a server or client agent
+default[cookbook_name]['run_as_server'] = true
+
+# Hosts of the cluster (servers)
 default[cookbook_name]['hosts'] = []
 
 # User and group of consul process
@@ -21,9 +24,6 @@ version = node[cookbook_name]['version']
 # package sha256 checksum
 default[cookbook_name]['checksum'] =
   '6c2c8f6f5f91dcff845f1b2ce8a29bd230c11397c448ce85aae6dacd68aa4c14'
-
-# Choose to run consul as a server or client agent
-default[cookbook_name]['run_as_server'] = true
 
 # Where to get the zip file
 binary = "consul_#{version}_linux_amd64.zip"
@@ -51,7 +51,10 @@ default[cookbook_name]['main_config'] = 'consul.json'
 default[cookbook_name]['config'] = {
   node[cookbook_name]['main_config'] => { # Main configuration
     'data_dir' => node[cookbook_name]['data_dir'],
-    'server' => default[cookbook_name]['run_as_server']
+    'server' => node[cookbook_name]['run_as_server']
+    # 'bootstrap_expect' => will be filled dynamically
+    # 'start_join' => will be filled dynamically
+    # 'retry_join' => will be filled dynamically
   }
 }
 
@@ -85,4 +88,3 @@ default[cookbook_name]['registered_services'] = []
 # Configure retries for the package resources, default = global default (0)
 # (mostly used for test purpose)
 default[cookbook_name]['package_retries'] = nil
-
