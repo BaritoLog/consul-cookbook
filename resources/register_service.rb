@@ -1,25 +1,25 @@
-property :configs, 	Array, default: [], required: true
-property :config_dir, 	String, required: true
-property :exec_file, 	String, required: true
-property :user, 	String, required: true
-property :group, 	String, required: true
+property :name,       String, name_property: true
+property :config,     Hash, default: {}
+property :config_dir, String, required: true
+property :user,       String, default: 'consul'
+property :group,      String, default: 'consul'
+property :consul_bin, String, required: true
+
+default_action :run
 
 action :run do
-  new_resource.configs.each do |config|
-    name = config['name']
+  # Create service configuration file
+  config = { "service" => new_resource.config }
 
-    # Create service configuration file
-    config = { "service" => config }
-    file "#{new_resource.config_dir}/#{new_resource.name}.json" do
-      content Chef::JSONCompat.to_json_pretty(config)
-      owner new_resource.user
-      group new_resource.group
-      mode '0640'
-    end
+  file "#{new_resource.config_dir}/#{new_resource.name}.json" do
+    content Chef::JSONCompat.to_json_pretty(config)
+    owner new_resource.user
+    group new_resource.group
+    mode '0640'
   end
 
-  # Reload Consul configuration
-  execute "reload config" do
-    command "#{new_resource.exec_file} reload"
+  # Reload consul
+  execute "reload consul" do
+    command "#{new_resource.consul_bin} reload"
   end
 end

@@ -82,9 +82,6 @@ default[cookbook_name]['systemd_unit'] = {
   }
 }
 
-# Service that will be registered to Consul
-default[cookbook_name]['registered_services'] = []
-
 # Configure retries for the package resources, default = global default (0)
 # (mostly used for test purpose)
 default[cookbook_name]['package_retries'] = nil
