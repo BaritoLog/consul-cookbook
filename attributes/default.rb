@@ -23,7 +23,7 @@ default[cookbook_name]['version'] = '1.1.0'
 version = node[cookbook_name]['version']
 # package sha256 checksum
 default[cookbook_name]['checksum'] =
-  '6c2c8f6f5f91dcff845f1b2ce8a29bd230c11397c448ce85aae6dacd68aa4c14'
+  '09c40c8b5be868003810064916d8460bff334ccfb59a5046390224b27e052c45'
 
 # Where to get the zip file
 binary = "consul_#{version}_linux_amd64.zip"
