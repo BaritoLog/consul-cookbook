@@ -19,7 +19,7 @@ default[cookbook_name]['user'] = 'consul'
 default[cookbook_name]['group'] = 'consul'
 
 # consul version
-default[cookbook_name]['version'] = '1.0.7'
+default[cookbook_name]['version'] = '1.1.0'
 version = node[cookbook_name]['version']
 # package sha256 checksum
 default[cookbook_name]['checksum'] =
