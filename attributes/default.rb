@@ -51,7 +51,13 @@ default[cookbook_name]['main_config'] = 'consul.json'
 default[cookbook_name]['config'] = {
   node[cookbook_name]['main_config'] => { # Main configuration
     'data_dir' => node[cookbook_name]['data_dir'],
-    'server' => node[cookbook_name]['run_as_server']
+    'server' => node[cookbook_name]['run_as_server'],
+    'addresses' => {
+      'http' => '0.0.0.0'
+    },
+    'ports' => {
+      'http' => '8500'
+    }
     # 'bootstrap_expect' => will be filled dynamically
     # 'start_join' => will be filled dynamically
     # 'retry_join' => will be filled dynamically
