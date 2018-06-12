@@ -56,7 +56,7 @@ default[cookbook_name]['config'] = {
       'http' => '0.0.0.0'
     },
     'ports' => {
-      'http' => '8500'
+      'http' => 8500
     }
     # 'bootstrap_expect' => will be filled dynamically
     # 'start_join' => will be filled dynamically
