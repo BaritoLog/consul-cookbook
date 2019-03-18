@@ -2,7 +2,7 @@ stages:
   - validate
 
 before_script:
-    - ./scripts/circleci-install-packer.sh
+    - ./scripts/gitlabci-install-packer.sh
 
 validate:
   stage: validate
