@@ -1,0 +1,21 @@
+{
+  "builders": [
+    {
+      "type": "lxd",
+      "name": "lxd-consul",
+      "image": "ubuntu:18.04",
+      "output_image": "lxd-consul",
+      "publish_properties": {
+        "description": "LXD image for consul"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "sleep 5"
+      ]
+    }
+  ]
+}

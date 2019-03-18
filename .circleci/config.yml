@@ -1,0 +1,16 @@
+version: 2
+jobs:
+  validate:
+    docker:
+      - image: hashicorp/packer:1.3.5
+    working_directory: ~/packer
+    steps:
+      - checkout
+      - run:
+          name: Validate base
+          command: packer validate ./packer.json
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - validate
