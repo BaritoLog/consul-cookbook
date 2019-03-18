@@ -1,0 +1,12 @@
+image: bionic
+
+stages:
+  - validate
+
+before_script:
+    - ./scripts/circleci-install-packer.sh
+
+validate:
+  stage: validate
+  script:
+    - ./packer/packer validate ./packer.json
