@@ -1,5 +1,3 @@
-image: bionic
-
 stages:
   - validate
 
@@ -10,3 +8,7 @@ validate:
   stage: validate
   script:
     - ./packer/packer validate ./packer.json
+  tags:
+    - bionic
+    - lxd
+    - lxc
