@@ -18,8 +18,6 @@ jobs:
     working_directory: ~/packer
     steps:
       - checkout
-      - attach_workspace:
-          at: ~/packer
       - run:
           name: Install packer
           command: ./scripts/circleci-install-packer.sh
