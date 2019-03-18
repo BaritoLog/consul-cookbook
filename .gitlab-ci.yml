@@ -10,5 +10,13 @@ validate:
     - ./packer/packer validate ./packer.json
   tags:
     - bionic
+
+build-base:
+  stage: build-base
+  script:
+    - ./scripts/gitlabci-install-lxd.sh
+    - ./scripts/gitlabci-build-base.sh
+  tags:
+    - bionic
     - lxd
     - lxc
