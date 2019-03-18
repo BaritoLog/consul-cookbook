@@ -1,5 +1,6 @@
 stages:
   - validate
+  - build-base
 
 before_script:
     - ./scripts/gitlabci-install-packer.sh
