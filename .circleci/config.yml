@@ -11,7 +11,7 @@ jobs:
           command: ./scripts/circleci-install-packer.sh
       - run:
           name: Validate base
-          command: packer validate ./packer.json
+          command: ./packer/packer validate ./packer.json
 workflows:
   version: 2
   build-and-deploy:
