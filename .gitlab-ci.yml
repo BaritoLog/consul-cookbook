@@ -15,7 +15,6 @@ validate:
 build-base:
   stage: build-base
   script:
-    - ./scripts/gitlabci-install-lxd.sh
     - ./scripts/gitlabci-build-base.sh
   tags:
     - bionic
