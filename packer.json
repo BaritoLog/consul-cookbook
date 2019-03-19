@@ -1,21 +1,20 @@
 {
+  "variables": {
+    "build_version": "{{env `BUILD_VERSION`}}",
+    "build_commit_sha": "{{env `BUILD_COMMIT_SHA`}}"
+  },
   "builders": [
     {
       "type": "lxd",
-      "name": "lxd-consul",
       "image": "ubuntu:18.04",
-      "output_image": "lxd-consul",
+      "output_image": "lxd-consul-{{user `build_version`}}",
       "publish_properties": {
+        "version": "{{user `build_version`}}",
+        "commit_sha": "{{user `build_commit_sha`}}",
         "description": "LXD image for consul"
-      }
+      },
+      "init_sleep": "5"
     }
   ],
-  "provisioners": [
-    {
-      "type": "shell",
-      "inline": [
-        "sleep 5"
-      ]
-    }
-  ]
+  "provisioners": []
 }

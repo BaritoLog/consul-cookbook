@@ -15,7 +15,7 @@ validate:
 build-base:
   stage: build-base
   script:
-    - ./scripts/gitlabci-build-base.sh
+    - BUILD_VERSION=0.0.1 BUILD_COMMIT_SHA=$CI_COMMIT_SHA ./scripts/gitlabci-build-base.sh
   tags:
     - bionic
     - lxd
