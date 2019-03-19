@@ -1,7 +1,7 @@
 {
   "variables": {
     "build_version": "{{env `BUILD_VERSION`}}",
-    "build_commit_sha": "{{env `BUILD_COMMIT_SHA`}}"
+    "build_commit_sha": "{{env `BUILD_COMMIT_SHA`}}",
     "cookbooks_path": "{{env `COOKBOOKS_PATH`}}"
   },
   "builders": [
