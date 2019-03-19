@@ -2,7 +2,7 @@
   "variables": {
     "build_version": "{{env `BUILD_VERSION`}}",
     "build_commit_sha": "{{env `BUILD_COMMIT_SHA`}}",
-    "cookbooks_path": "{{env `COOKBOOKS_PATH`}}"
+    "cookbook_paths": "{{env `COOKBOOK_PATHS`}}"
   },
   "builders": [
     {
@@ -20,7 +20,7 @@
   "provisioners": [
     {
       "type": "chef-solo",
-      "cookbook_paths": ["{{user `cookbooks_path`}}"],
+      "cookbook_paths": ["{{user `cookbook_paths`}}"],
       "run_list": ["recipe[consul::default]"]
     }
   ]
