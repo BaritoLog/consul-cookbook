@@ -1,4 +1,4 @@
 set -x
 set -e
-sudo ./packer/packer build ./packer.json
-sudo lxc image list
+./packer/packer build ./packer.json
+lxc image list
