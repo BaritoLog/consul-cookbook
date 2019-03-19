@@ -2,6 +2,7 @@
   "variables": {
     "build_version": "{{env `BUILD_VERSION`}}",
     "build_commit_sha": "{{env `BUILD_COMMIT_SHA`}}"
+    "cookbooks_path": "{{env `COOKBOOKS_PATH`}}"
   },
   "builders": [
     {
@@ -16,5 +17,11 @@
       "init_sleep": "5"
     }
   ],
-  "provisioners": []
+  "provisioners": [
+    {
+      "type": "chef-solo",
+      "cookbook_paths": ["{{user `cookbook_paths`}}"],
+      "run_list": ["recipe[consul::default]"]
+    }
+  ]
 }
