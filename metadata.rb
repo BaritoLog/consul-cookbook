@@ -4,7 +4,7 @@ maintainer_email 'you@example.com'
 license 'MIT'
 description 'Installs/Configures consul cluster'
 long_description 'Installs/Configures consul cluster'
-version '1.1.0-1'
+version '1.1.0'
 chef_version '>= 12.14' if respond_to?(:chef_version)
 
 # The `issues_url` points to the location where issues for this cookbook are
