@@ -21,7 +21,11 @@
 # limitations under the License.
 #
 
+chef_version_for_provides '< 14.7' if respond_to?(:chef_version_for_provides)
+resource_name :windows_share
+
 require 'chef/json_compat'
+require 'chef/util/path_helper'
 
 # Specifies a name for the SMB share. The name may be composed of any valid file name characters, but must be less than 80 characters long. The names pipe and mailslot are reserved for use by the computer.
 property :share_name, String, name_property: true
@@ -102,7 +106,7 @@ load_current_value do |desired|
 
   # we raise here instead of warning like above because we'd only get here if the above Get-SmbShare
   # command was successful and that continuing would leave us with 1/2 known state
-  raise "Could not determine #{desired.share_name} share permissions by running '#{perm_cmd}'" if ps_perm_results.error?
+  raise "Could not determine #{desired.share_name} share permissions by running '#{perm_state_cmd}'" if ps_perm_results.error?
 
   Chef::Log.debug("The Get-SmbShareAccess results were #{ps_perm_results.stdout}")
 
@@ -151,10 +155,12 @@ action :create do
 
   converge_if_changed do
     # you can't actually change the path so you have to delete the old share first
-    delete_share if different_path?
-
-    # powershell cmdlet for create is different than updates
-    if current_resource.nil?
+    if different_path?
+      Chef::Log.debug('The path has changed so we will delete and recreate share')
+      delete_share
+      create_share
+    elsif current_resource.nil?
+      # powershell cmdlet for create is different than updates
       Chef::Log.debug('The current resource is nil so we will create a new share')
       create_share
     else
@@ -180,7 +186,7 @@ end
 action_class do
   def different_path?
     return false if current_resource.nil? # going from nil to something isn't different for our concerns
-    return false if current_resource.path == new_resource.path
+    return false if current_resource.path == Chef::Util::PathHelper.cleanpath(new_resource.path)
     true
   end
 
@@ -201,12 +207,16 @@ action_class do
   def create_share
     raise "#{new_resource.path} is missing or not a directory. Shares cannot be created if the path doesn't first exist." unless ::File.directory? new_resource.path
 
-    share_cmd = "New-SmbShare -Name '#{new_resource.share_name}' -Path '#{new_resource.path}' -Description '#{new_resource.description}' -ConcurrentUserLimit #{new_resource.concurrent_user_limit} -CATimeout #{new_resource.ca_timeout} -EncryptData:#{bool_string(new_resource.encrypt_data)} -ContinuouslyAvailable:#{bool_string(new_resource.continuously_available)}"
+    share_cmd = "New-SmbShare -Name '#{new_resource.share_name}' -Path '#{Chef::Util::PathHelper.cleanpath(new_resource.path)}' -Description '#{new_resource.description}' -ConcurrentUserLimit #{new_resource.concurrent_user_limit} -CATimeout #{new_resource.ca_timeout} -EncryptData:#{bool_string(new_resource.encrypt_data)} -ContinuouslyAvailable:#{bool_string(new_resource.continuously_available)}"
     share_cmd << " -ScopeName #{new_resource.scope_name}" unless new_resource.scope_name == '*' # passing * causes the command to fail
     share_cmd << " -Temporary:#{bool_string(new_resource.temporary)}" if new_resource.temporary # only set true
 
     Chef::Log.debug("Running '#{share_cmd}' to create the share")
     powershell_out!(share_cmd)
+
+    # New-SmbShare adds the "Everyone" user with read access no matter what so we need to remove it
+    # before we add our permissions
+    revoke_user_permissions(['Everyone'])
   end
 
   # determine what users in the current state don't exist in the desired state
@@ -262,8 +272,10 @@ action_class do
     false
   end
 
+  # revoke user permissions from a share
+  # @param [Array] users
   def revoke_user_permissions(users)
-    revoke_command = "Revoke-SmbShareAccess -Name '#{new_resource.share_name}' -AccountName \"#{users.join(',')}\" -Force"
+    revoke_command = "Revoke-SmbShareAccess -Name '#{new_resource.share_name}' -AccountName \"#{users.join('","')}\" -Force"
     Chef::Log.debug("Running '#{revoke_command}' to revoke share permissions")
     powershell_out!(revoke_command)
   end

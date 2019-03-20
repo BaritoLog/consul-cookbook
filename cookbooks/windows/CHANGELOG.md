@@ -2,6 +2,57 @@
 
 This file is used to list changes made in each version of the windows cookbook.
 
+## 5.3.0 (2019-03-06)
+
+- Expanded certificate testing to cover more scenarios - [@Xorima](https://github.com/Xorima)
+- Updated windows_share to better compare the current and desired path in order to prevent converging on each Chef run  - [@Xorima](https://github.com/Xorima)
+- Backported all windows_certificate fixes from Chef 14.8 - 14.11 including improvements to importing the types of certificates that can be imported, suppport for nested certs, and support for importing private keys with certs.
+
+## 5.2.4 (2019-02-28)
+
+- Fix http_acl regex to properly capture SDDL - [@Annih](https://github.com/Annih)
+- Updated windows_share to create share if the share is deleted, and to sanitize paths using Chef::Util::PathHelper.cleanpath (#607) - [@Xorima](https://github.com/Xorima)
+
+## 5.3.3 (2019-01-30)
+
+- Updated windows_certificate code to match that in Chef 14.10. This increases the requirement of the win32_certstore gem to the latest and resolves multiple issues with the previous implementation.
+
+## 5.2.2 (2018-11-20)
+
+- windows_share: Accounts to be revoked should be provided as an individually quoted string array
+
+## 5.2.1 (2018-11-19)
+
+- windows_share: Fix idempotency by not adding everyone by default
+
+## 5.2.0 (2018-11-14)
+
+- Support installing deleted features in windows_feature_dism
+
+## 5.1.6 (2018-11-13)
+
+- Add a warning to the readme regarding windows_share and windows_certificate now being included in Chef 14.7
+- Deprecated win_friendly_path helper in favor of built-in helpers
+
+## 5.1.5 (2018-11-07)
+
+- Avoid deprecation warnings in windows_share and windows_certificate on Chef 14.7+ as these are now included in the chef-client itself.
+
+## 5.1.4 (2018-10-30)
+
+- Note the :verify action for windows_certificate in the readme
+- certificate resource: auto set sensitive is passing password
+
+## 5.1.3 (2018-10-11)
+
+- Remove docs and test suite for windows tasks
+- Changed variable name in log message for retrieving SMB share access
+- Don't load the windows helper in windows_certificate
+
+## 5.1.2 (2018-10-08)
+
+- Fix typo in windows_feature_dism resource name
+
 ## 5.1.1 (2018-09-06)
 
 - Require the win32-certstore gem and upgrade the gem as the resource runs so we get the most up to date version
