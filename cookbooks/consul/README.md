@@ -2,6 +2,19 @@
 
 Chef cookbook for provisioning consul cluster.
 
+## Releasing New Version
+
+We need to do these whenever we release a new version:
+
+1. Run
+```
+bundle exec berks update
+bundle exec berks vendor cookbooks
+```
+
+2. Commit and updated `cookbooks` directory
+3. Tag the commit that we want to release with format `<APP-VERSION>-<REVISION>`
+
 ## Building Image
 
 This repo produces LXC image using Packer, see [this](http://packer.io/intro/getting-started/install.html) on how to start using Packer.
