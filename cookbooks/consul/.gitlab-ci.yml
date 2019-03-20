@@ -1,0 +1,32 @@
+stages:
+  - validate
+  - build-base
+
+variables:
+  BUILD_VERSION: "$CI_COMMIT_TAG"
+  BUILD_COMMIT_SHA: "$CI_COMMIT_SHA"
+  OUTPUT_IMAGE: "lxd-consul-$CI_COMMIT_TAG"
+  IMAGE_REGISTRY: "barito-registry"
+  COOKBOOK_PATHS: "/home/gitlab-runner/chef-repo/cookbooks"
+
+before_script:
+    - ./scripts/gitlabci-install-packer.sh
+
+validate:
+  stage: validate
+  script:
+    - ./packer/packer validate ./packer.json
+  tags:
+    - bionic
+
+build-base:
+  stage: build-base
+  script:
+    - ./scripts/gitlabci-build-base.sh
+    - ./scripts/gitlabci-copy-image.sh
+  tags:
+    - bionic
+    - lxd
+    - lxc
+  only:
+  - tags
