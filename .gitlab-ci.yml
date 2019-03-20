@@ -10,7 +10,7 @@ variables:
   COOKBOOK_PATHS: "./cookbooks"
 
 before_script:
-    - ./scripts/gitlabci-install-packer.sh
+    - curl -s https://raw.githubusercontent.com/BaritoLog/cx-scripts/master/gitlabci-install-packer.sh | bash
 
 validate:
   stage: validate
@@ -22,8 +22,8 @@ validate:
 build-base:
   stage: build-base
   script:
-    - ./scripts/gitlabci-build-base.sh
-    - ./scripts/gitlabci-copy-image.sh
+    - curl -s https://raw.githubusercontent.com/BaritoLog/cx-scripts/master/gitlabci-build-base.sh | bash
+    - curl -s https://raw.githubusercontent.com/BaritoLog/cx-scripts/master/gitlabci-copy-image.sh | bash
   tags:
     - bionic
     - lxd
