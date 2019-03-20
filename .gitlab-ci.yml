@@ -3,6 +3,10 @@ stages:
   - build-base
 
 variables:
+  BUILD_VERSION: "0.0.1"
+  BUILD_COMMIT_SHA: "$CI_COMMIT_SHA"
+  OUTPUT_IMAGE: "lxd-consul-0.0.1"
+  IMAGE_REGISTRY: "barito-registry"
   COOKBOOK_PATHS: "/home/gitlab-runner/chef-repo/cookbooks"
 
 before_script:
@@ -18,7 +22,8 @@ validate:
 build-base:
   stage: build-base
   script:
-    - BUILD_VERSION=0.0.1 BUILD_COMMIT_SHA=$CI_COMMIT_SHA ./scripts/gitlabci-build-base.sh
+    - ./scripts/gitlabci-build-base.sh
+    - ./scripts/gitlabci-copy-image.sh
   tags:
     - bionic
     - lxd

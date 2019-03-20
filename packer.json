@@ -2,13 +2,14 @@
   "variables": {
     "build_version": "{{env `BUILD_VERSION`}}",
     "build_commit_sha": "{{env `BUILD_COMMIT_SHA`}}",
+    "output_image": "{{env `OUTPUT_IMAGE`}}",
     "cookbook_paths": "{{env `COOKBOOK_PATHS`}}"
   },
   "builders": [
     {
       "type": "lxd",
       "image": "ubuntu:18.04",
-      "output_image": "lxd-consul-{{user `build_version`}}",
+      "output_image": "{{user `output_image`}}",
       "publish_properties": {
         "version": "{{user `build_version`}}",
         "commit_sha": "{{user `build_commit_sha`}}",
