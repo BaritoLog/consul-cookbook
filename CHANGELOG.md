@@ -1,5 +1,9 @@
 # CHANGELOG
 
+**1.1.0-4**
+
+- add checks config
+
 **1.1.0-3**
 
 - Use remote cx scripts for building the image
