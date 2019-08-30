@@ -20,6 +20,6 @@ action :run do
   end
 
   execute "reload consul" do
-    command "#{new_resource.consul_bin} reload"
+    command "sleep 5; #{new_resource.consul_bin} reload"
   end
 end
