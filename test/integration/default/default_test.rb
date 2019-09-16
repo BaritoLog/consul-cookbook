@@ -43,6 +43,13 @@ describe file('/opt/consul/etc/consul.json') do
   its('mode') { should cmp '0640' }
 end
 
+describe file('/etc/systemd/resolved.conf') do
+  it { should be_file }
+  it { should_not be_directory }
+  its('content') { should match /DNS=127.0.0.1/ }
+  its('content') { should match /Domains=~consul/ }
+end
+
 describe systemd_service('consul') do
   it { should be_installed }
   it { should be_enabled }
