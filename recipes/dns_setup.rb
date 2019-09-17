@@ -33,5 +33,5 @@ end
 execute "map tcp port 53 to 8600" do
   user "root"
   group "root"
-  command "iptables -t nat -A OUTPUT -d localhost -p tcp -m udp --dport 53 -j REDIRECT --to-ports 8600"
+  command "iptables -t nat -A OUTPUT -d localhost -p tcp -m tcp --dport 53 -j REDIRECT --to-ports 8600"
 end
