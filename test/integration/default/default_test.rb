@@ -56,3 +56,7 @@ describe systemd_service('consul') do
   it { should be_running }
 end
 
+describe command('iptables -L -t nat') do
+  its('stdout') { should match /ports 8600/ }
+end
+
