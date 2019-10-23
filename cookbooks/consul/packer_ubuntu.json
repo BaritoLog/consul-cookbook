@@ -8,7 +8,7 @@
   "builders": [
     {
       "type": "lxd",
-      "image": "ubuntu-minimal:18.04",
+      "image": "ubuntu:18.04",
       "output_image": "{{user `output_image`}}",
       "publish_properties": {
         "version": "{{user `build_version`}}",
