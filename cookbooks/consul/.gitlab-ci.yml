@@ -5,28 +5,32 @@ stages:
 variables:
   BUILD_VERSION: "$CI_COMMIT_TAG"
   BUILD_COMMIT_SHA: "$CI_COMMIT_SHA"
-  OUTPUT_IMAGE: "lxd-consul-$CI_COMMIT_TAG"
   IMAGE_REGISTRY: "barito-registry"
   COOKBOOK_PATHS: "./cookbooks"
 
 before_script:
-    - ./scripts/gitlabci-install-packer.sh
+    - curl -s https://raw.githubusercontent.com/BaritoLog/cx-scripts/master/gitlabci-install-packer.sh | bash
 
-validate:
+validate-ubuntu-image:
   stage: validate
+  variables:
+    OUTPUT_IMAGE: "lxd-ubuntu-consul-$CI_COMMIT_TAG"
   script:
-    - ./packer/packer validate ./packer.json
+    - ./packer/packer validate ./packer_ubuntu.json
   tags:
     - bionic
 
-build-base:
+build-base-ubuntu-image:
   stage: build-base
+  variables:
+    OUTPUT_IMAGE: "lxd-ubuntu-consul-$CI_COMMIT_TAG"
   script:
-    - ./scripts/gitlabci-build-base.sh
-    - ./scripts/gitlabci-copy-image.sh
+    - curl -s https://raw.githubusercontent.com/BaritoLog/cx-scripts/master/gitlabci-build-base.sh | bash
+    - curl -s https://raw.githubusercontent.com/BaritoLog/cx-scripts/master/gitlabci-copy-image.sh | bash
   tags:
     - bionic
     - lxd
     - lxc
   only:
   - tags
+
