@@ -44,3 +44,6 @@ ark 'consul' do
   group node[cookbook_name]['group']
 end
 
+execute 'apt autoremove' do
+  command 'apt autoremove -y'
+end
