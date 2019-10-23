@@ -1,4 +1,4 @@
 set -x
 set -e
-./packer/packer build ./packer.json
+./packer/packer build $TEMPLATE_FILE
 lxc image list
