@@ -8,6 +8,8 @@
 
 package_retries = node[cookbook_name]['package_retries']
 
+apt_update
+
 # unzip & rsync may not be installed by default
 package %w[unzip rsync] do
   retries package_retries unless package_retries.nil?
