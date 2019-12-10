@@ -16,7 +16,7 @@ platforms:
   - name: ubuntu-16.04
 
 suites:
-  - name: default
+  - name: master
     run_list:
       - recipe[consul::default]
     verifier:
@@ -30,4 +30,19 @@ suites:
           consul.json:
             datacenter: dc1
             disable_host_node_id: true
+        package_retries: 1
+  - name: agent
+    run_list:
+      - recipe[consul::default]
+    verifier:
+      inspec_tests:
+        - test/integration/default
+    attributes:
+      consul:
+        role: consul
+        hosts: ['master-ubuntu-1604.vagrantup.com']
+        run_as_server: false
+        config:
+          consul.json:
+            bind_addr: null
         package_retries: 1
