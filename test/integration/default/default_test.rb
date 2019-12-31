@@ -60,3 +60,7 @@ describe command('iptables -L -t nat') do
   its('stdout') { should match /ports 8600/ }
 end
 
+describe port(8500) do
+  it { should be_listening }
+end
+

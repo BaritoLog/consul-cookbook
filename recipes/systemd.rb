@@ -15,7 +15,7 @@ end.join(' ')
 # Configure systemd unit with options
 unit = node[cookbook_name]['systemd_unit'].to_hash
 bin = "#{node[cookbook_name]['prefix_home']}/consul/consul"
-unit['Service']['ExecStart'] = "#{bin} agent #{options}"
+unit['Service']['ExecStart'] = "#{bin} agent #{options} -ui"
 
 systemd_unit 'consul.service' do
   enabled true
