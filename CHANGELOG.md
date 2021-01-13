@@ -1,5 +1,13 @@
 # CHANGELOG
 
+**1.1.0-11**
+
+- Make sure systemd installed correctly
+
+**1.1.0-10**
+
+- Enable consul ui for server mode
+
 **1.1.0-7**
 
 - Make generic builders image and template file

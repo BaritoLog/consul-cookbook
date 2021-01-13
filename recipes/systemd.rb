@@ -4,9 +4,6 @@
 #
 # Copyright:: 2018, BaritoLog.
 
-# Return if servers have not been configured
-return if node.run_state.dig(cookbook_name, 'hosts').nil?
-
 # Construct command line options
 options = node[cookbook_name]['cli_opts'].map do |key, opt|
   "-#{key.to_s.tr('_', '-')}#{" #{opt}" unless opt.nil?}"
@@ -31,4 +28,3 @@ systemd_unit 'consul.service' do
   triggers_reload true
   action %i[create enable start restart]
 end
-
